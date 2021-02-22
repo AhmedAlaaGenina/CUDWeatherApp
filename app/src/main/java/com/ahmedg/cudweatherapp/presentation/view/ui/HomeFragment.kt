@@ -169,7 +169,11 @@ class HomeFragment : Fragment() {
         )
         val notificationWork = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
             .setInputData(data).setInitialDelay(delay, TimeUnit.SECONDS).build()
-        workManager.enqueueUniqueWork("notification", ExistingWorkPolicy.REPLACE, notificationWork)
+        workManager.enqueueUniqueWork(
+            alertId.toString(),
+            ExistingWorkPolicy.REPLACE,
+            notificationWork
+        )
 
     }
 
@@ -214,17 +218,6 @@ class HomeFragment : Fragment() {
     private fun hasInternetConnection(): Boolean {
         return weatherViewModel.hasInternetConnection()
     }
-
-//    private fun translate(lang: String) {
-//        if (lang == "ar") {
-//            val context = com.ahmedg.cudweatherapp.helperclass.LocaleHelper.setLocale(requireContext(), "ar");
-//            val resources = context.resources
-//            binding.hu.text = resources.getString(R.string.humidity)
-//            binding.c.text = resources.getString(R.string.clouds)
-//            binding.ws.text = resources.getString(R.string.windspeed)
-//            binding.p.text = resources.getString(R.string.pressure)
-//        }
-//    }
 
     private fun convertArabic(arabicStr: String): String {
         val chArr = arabicStr.toCharArray()

@@ -39,23 +39,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 startActivity(Intent(requireContext(), MainActivity::class.java))
                 true
             }
-//        languageSystem?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-//
-//            val sp = PreferenceManager.getDefaultSharedPreferences(context)
-//            val lang = sp.getString("languageSystem", Locale.getDefault().language)!!
-//            if (lang == "ar") {
-//                activity?.let {
-//                    HelperClass.setLocale(it, "ar")
-//                }
-//                startActivity(Intent(requireContext(), MainActivity::class.java))
-//            } else {
-//                activity?.let {
-//                    HelperClass.setLocale(it, "en")
-//                }
-//                startActivity(Intent(requireContext(), MainActivity::class.java))
-//            }
-//            true
-//        }
+
     }
 
 }

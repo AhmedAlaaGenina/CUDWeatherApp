@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkManager
 import com.ahmedg.cudweatherapp.R
 import com.ahmedg.cudweatherapp.databinding.FragmentWeatherAlertBinding
 import com.ahmedg.cudweatherapp.model.CreateAlert
@@ -20,6 +21,7 @@ import com.ahmedg.cudweatherapp.presentation.view.adapters.CreateAlertAdapter
 import com.ahmedg.cudweatherapp.presentation.view.adapters.WeatherFavouriteAdapter
 import com.ahmedg.cudweatherapp.presentation.viewmodel.WeatherViewModel
 import com.google.android.material.snackbar.Snackbar
+import java.util.*
 
 class WeatherAlertFragment : Fragment() {
     private lateinit var binding: FragmentWeatherAlertBinding
@@ -61,6 +63,8 @@ class WeatherAlertFragment : Fragment() {
             val position = viewHolder.adapterPosition
             val removeAt = adapter.getAlertList().removeAt(position)
             deleteAlert(removeAt)
+            WorkManager.getInstance(requireContext())
+                .cancelUniqueWork((removeAt.selectedDT).toString())
             adapter.notifyDataSetChanged()
             Snackbar.make(requireView(), "Successfully deleted", Snackbar.LENGTH_LONG).apply {
                 setAction("Undo") {
