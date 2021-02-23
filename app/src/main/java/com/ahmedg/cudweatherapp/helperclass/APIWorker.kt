@@ -71,8 +71,8 @@ class APIWorker(context: Context, params: WorkerParameters) : Worker(context, pa
                             id.toLong(),
                             response.body()!!.alerts!![0].event,
                             response.body()!!.alerts!![0].start - currentTime,
-                            response.body()!!.alerts!![0].end,
-                            response.body()!!.alerts!![0].start
+                            response.body()!!.alerts!![0].end.toDouble(),
+                            response.body()!!.alerts!![0].start.toDouble()
                         )
                     }
                 }
@@ -80,7 +80,7 @@ class APIWorker(context: Context, params: WorkerParameters) : Worker(context, pa
         }
     }
 
-    private fun notificationWorkerFun(id: Long, alert: String, delay: Long, end: Int, start: Int) {
+    private fun notificationWorkerFun(id: Long, alert: String, delay: Long, end: Double, start: Double) {
         val workManager = WorkManager.getInstance(applicationContext)
         val data = workDataOf(
             NOTIFICATION_ID to id, NOTIFICATION_DES to alert,
