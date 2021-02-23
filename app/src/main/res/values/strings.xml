@@ -36,7 +36,7 @@
     <string name="pressure">Pressure</string>
     <string name="windspeed">WindSpeed</string>
     <string name="humidity">Humidity</string>
-    <string name="alarm_or_notification" >Alarm Or Notification</string>
+    <string name="alarm_or_notification">Alarm Or Notification</string>
     <string name="home">Home</string>
     <string name="favourite">Favourite</string>
     <string name="custom_weather_alert">Custom Weather Alert</string>

@@ -29,7 +29,7 @@ class APIWorker(context: Context, params: WorkerParameters) : Worker(context, pa
             val id = inputData.getDouble(API_ID, 0.0)
             if (units != null) {
                 if (lang != null) {
-                    fetchWeatherAPI(id,lat, lon, lang, units)
+                    fetchWeatherAPI(id, lat, lon, lang, units)
                 }
             }
             Result.success()
@@ -51,7 +51,7 @@ class APIWorker(context: Context, params: WorkerParameters) : Worker(context, pa
     }
 
     private fun fetchWeatherAPI(id: Double, lat: Double, lon: Double, lang: String, units: String) {
-        val currentTime = Calendar.getInstance().timeInMillis
+        val currentTime = Calendar.getInstance().timeInMillis / 1000
         GlobalScope.launch {
             Dispatchers.IO
             val response = ApiWeather.getApiService()

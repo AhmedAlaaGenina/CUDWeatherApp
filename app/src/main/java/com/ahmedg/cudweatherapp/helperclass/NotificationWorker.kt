@@ -49,10 +49,16 @@ class NotificationWorker(context: Context, params: WorkerParameters) : Worker(co
             val alertStart = inputData.getDouble(NOTIFICATION_START, 0.0)
             val alertId = inputData.getLong(NOTIFICATION_ALERT_DELETE, -1)
             if (alertDes != null) {
-                if (isAlarm == "Notification") {
-                    sendNotification(alertId, id, alertDes, alertEnd, alertStart)
-                } else if (isAlarm == "Alarm") {
-                    createAlarm(alertId,alertDes, alertStart)
+                when (isAlarm) {
+                    "Notification" -> {
+                        sendNotification(alertId, id, alertDes, alertEnd, alertStart)
+                    }
+                    "Alarm" -> {
+                        createAlarm(alertId,alertDes, alertStart)
+                    }
+                    else -> {
+                        sendNotification(alertId, id, alertDes, alertEnd, alertStart)
+                    }
                 }
             }
             Result.success()
