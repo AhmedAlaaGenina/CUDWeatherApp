@@ -64,23 +64,33 @@ class APIWorker(context: Context, params: WorkerParameters) : Worker(context, pa
                     Constant.APP_ID
                 )
             if (response.isSuccessful) {
+                val rnds = (5000..10000).random()
                 withContext(Dispatchers.Main) {
                     insertCurrent(response.body()!!)
                     if (response.body()!!.alerts != null) {
-                        notificationWorkerFun(
-                            id.toLong(),
-                            response.body()!!.alerts!![0].event,
-                            response.body()!!.alerts!![0].start - currentTime,
-                            response.body()!!.alerts!![0].end.toDouble(),
-                            response.body()!!.alerts!![0].start.toDouble()
-                        )
+                        for (i in response.body()!!.alerts!!) {
+                            Log.i("TAG", "fetchWeatherAPI: ${i.event}")
+                            notificationWorkerFun(
+                                i.start.toLong(),
+                                i.event,
+                                i.start - currentTime,
+                                i.end.toDouble(),
+                                i.start.toDouble()
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun notificationWorkerFun(id: Long, alert: String, delay: Long, end: Double, start: Double) {
+    private fun notificationWorkerFun(
+        id: Long,
+        alert: String,
+        delay: Long,
+        end: Double,
+        start: Double
+    ) {
         val workManager = WorkManager.getInstance(applicationContext)
         val data = workDataOf(
             NOTIFICATION_ID to id, NOTIFICATION_DES to alert,
